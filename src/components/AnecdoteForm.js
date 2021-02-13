@@ -9,11 +9,14 @@ const AnecdoteForm = () => {
     event.target.anecdote.value = ''
   }  
   return(
-    <form onSubmit={ addBlog }>
-      <input name = 'anecdote' >
-      </input>
-      <button type="submit">add</button>
-    </form>
+    <div>
+      <h2>Create New</h2>
+        <form onSubmit={ addBlog }>
+          <input name = 'anecdote' >
+          </input>
+          <button type="submit">add</button>
+        </form>
+    </div>
   )
 }
 
