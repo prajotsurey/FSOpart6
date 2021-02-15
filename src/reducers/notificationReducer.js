@@ -1,25 +1,36 @@
+var counter = 0
 
-export const voteNotify = (content) => {
-  return {
-    type: 'VOTE_NOTIFICATION',
-    data: {
-      content 
-    }
-  }
-}
-
-export const clearNotification = () => {
-  return {
-    type: 'CLEAR_NOTIFICATION'
+export const setNotification = (content,time) => {
+  return async dispatch => {
+    const id = counter++
+    dispatch({
+      type:'SET_NOTIFICATION',
+      data: {  
+        content : content,
+        counter : id,
+      } 
+    })
+    setTimeout(() => {
+      dispatch({
+        type:'CLEAR_NOTIFICATION',
+        data: {
+          counter : id,
+        } 
+      })
+    },time*1000)
   }
 }
 
 const notificationReducer = (state = '', action) => {
   switch(action.type){
-    case 'VOTE_NOTIFICATION':
-      return `You voted '${action.data.content}'`
+    case 'SET_NOTIFICATION':
+      return action.data 
     case 'CLEAR_NOTIFICATION':
-      return null
+      if(action.data.counter === state.counter)
+      {
+        return ''
+      }
+      return state
     default:
       return state
   }
